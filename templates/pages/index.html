@@ -1,17 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for foo in "abcde" %}
+
+    {% for olist in xobjects %}
+
+    <div class="row">
+
+        {% for o in olist %}
+
+            <div class="col-xs-18 col-sm-6 col-md-3">
+                {{ o }}
+                {% include "pages/partials/thumbnail.html" %}
+            </div>
+
+        {% endfor %}
 
 
-        <div class="jumbotron">
-            <h1>Jumbotron</h1>
 
-            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured
-                content or information.</p>
+{#        <div class="col-xs-18 col-sm-6 col-md-3">#}
+{#            {% include "pages/partials/thumbnail.html" %}#}
+{#        </div>#}
+{##}
+{#        <div class="col-xs-18 col-sm-6 col-md-3">#}
+{#            {% include "pages/partials/thumbnail.html" %}#}
+{#        </div>#}
 
-            <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-        </div>
+{#        <div class="col-xs-18 col-sm-6 col-md-3">#}
+            {#            {% include "pages/partials/thumbnail.html" %}#}
+{#        </div>#}
+
+    </div><!-- End row -->
+
+
     {% endfor %}
 
 {% endblock %}

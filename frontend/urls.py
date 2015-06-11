@@ -20,7 +20,29 @@ from django.conf.urls.static import static
 
 from django.views.generic import TemplateView
 
+
+class Segmenter(object):
+    def __init__(self, iter, step=4):
+        self.iter = iter
+        self.step = step
+
+    def __iter__(self):
+        index = 0
+        while True:
+            result = self.iter[index: index+self.step]
+            if not result:
+                raise StopIteration
+            yield result
+            index += self.step
+
+class MyTemplateView(TemplateView):
+    template_name = "pages/index.html"
+
+    def get_context_data(self, **kwargs):
+        return {'xobjects': Segmenter( list(xrange(83)), 4), }
+
+
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', TemplateView.as_view(template_name="pages/index.html")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+                  url(r'^admin/', include(admin.site.urls)),
+                  url(r'^$', MyTemplateView.as_view()),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
